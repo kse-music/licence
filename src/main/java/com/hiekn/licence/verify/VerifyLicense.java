@@ -13,6 +13,7 @@ import java.util.prefs.Preferences;
  * @author LL
  */
 public class VerifyLicense {
+
     //common param
     private static String PUBLICALIAS = "";
     private static String STOREPWD = "";
@@ -20,7 +21,9 @@ public class VerifyLicense {
     private static String licPath = "";
     private static String pubPath = "";
 
-    public void setParam(String propertiesPath) {
+    private static LicenseManager licenseManager;
+
+    public VerifyLicense(String propertiesPath) {
         // 获取参数
         Properties prop = new Properties();
         InputStream in = getClass().getClassLoader().getResourceAsStream(propertiesPath);
@@ -34,12 +37,14 @@ public class VerifyLicense {
         SUBJECT = prop.getProperty("SUBJECT");
         licPath = prop.getProperty("licPath");
         pubPath = prop.getProperty("pubPath");
+
+        install();
     }
 
-    public boolean verify() {
+    public void install(){
         /************** 证书使用者端执行 ******************/
 
-        LicenseManager licenseManager = LicenseManagerHolder.getLicenseManager(initLicenseParams());
+        licenseManager = LicenseManagerHolder.getLicenseManager(initLicenseParams());
         // 安装证书
         try {
             licenseManager.install(new File(licPath));
@@ -47,12 +52,18 @@ public class VerifyLicense {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("客户端证书安装失败!");
-            return false;
         }
+    }
+
+    public boolean verify() {
         // 验证证书
         try {
-            licenseManager.verify();
-            System.out.println("客户端验证证书成功!");
+            LicenseContent content = licenseManager.verify();
+            Object extra = content.getExtra();
+//            boolean macFlag = ListNets.validateMacAddress(extra.toString());
+//            if(!macFlag){
+//                throw new IllegalStateException("客户端证书验证失效!");
+//            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("客户端证书验证失效!");

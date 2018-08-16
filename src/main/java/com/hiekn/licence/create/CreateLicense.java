@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.prefs.Preferences;
 
 public class CreateLicense {
+
     //common param
     private static String PRIVATEALIAS = "";
     private static String KEYPWD = "";
@@ -31,7 +32,7 @@ public class CreateLicense {
     // X500Princal是一个证书文件的固有格式，详见API
     private final static X500Principal DEFAULTHOLDERANDISSUER = new X500Principal("CN=hiekn、OU=hiekn、O=hiekn、C=CN");
 
-    public void setParam(String propertiesPath) {
+    public CreateLicense(String propertiesPath) {
         // 获取参数
         Properties prop = new Properties();
         InputStream in = getClass().getClassLoader().getResourceAsStream(propertiesPath);
