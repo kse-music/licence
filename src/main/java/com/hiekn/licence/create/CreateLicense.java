@@ -12,6 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.prefs.Preferences;
 
+/**
+ * CreateLicense
+ * @author DH
+ * @since 2018年8月16日14:55:44
+ */
 public class CreateLicense {
 
     //common param
@@ -28,7 +33,7 @@ public class CreateLicense {
     private static String consumerType = "";
     private static int consumerAmount = 0;
     private static String info = "";
-    // 为了方便直接用的API里的例子
+
     // X500Princal是一个证书文件的固有格式，详见API
     private final static X500Principal DEFAULTHOLDERANDISSUER = new X500Principal("CN=hiekn、OU=hiekn、O=hiekn、C=CN");
 

@@ -10,7 +10,8 @@ import java.util.prefs.Preferences;
 
 /**
  * VerifyLicense
- * @author LL
+ * @author DH
+ * @since 2018年8月16日14:55:44
  */
 public class VerifyLicense {
 
@@ -41,17 +42,18 @@ public class VerifyLicense {
         install();
     }
 
-    public void install(){
+    private void install(){
         /************** 证书使用者端执行 ******************/
-
-        licenseManager = LicenseManagerHolder.getLicenseManager(initLicenseParams());
-        // 安装证书
+        Preferences preference = Preferences.userNodeForPackage(VerifyLicense.class);
+        CipherParam cipherParam = new DefaultCipherParam(STOREPWD);
+        KeyStoreParam privateStoreParam = new DefaultKeyStoreParam(VerifyLicense.class, pubPath, PUBLICALIAS, STOREPWD, null);
+        LicenseParam licenseParams = new DefaultLicenseParam(SUBJECT, preference, privateStoreParam, cipherParam);
+        licenseManager = LicenseManagerHolder.getLicenseManager(licenseParams);
         try {
+            // 安装证书
             licenseManager.install(new File(licPath));
-            System.out.println("客户端安装证书成功!");
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("客户端证书安装失败!");
+            throw new IllegalStateException("licence install failed",e);
         }
     }
 
@@ -62,22 +64,12 @@ public class VerifyLicense {
             Object extra = content.getExtra();
 //            boolean macFlag = ListNets.validateMacAddress(extra.toString());
 //            if(!macFlag){
-//                throw new IllegalStateException("客户端证书验证失效!");
+//                throw new IllegalStateException("Client certificate verification is invalid!");
 //            }
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("客户端证书验证失效!");
-            return false;
+            throw new IllegalStateException("Client certificate verification is invalid!",e);
         }
         return true;
     }
 
-    // 返回验证证书需要的参数
-    private static LicenseParam initLicenseParams() {
-        Preferences preference = Preferences.userNodeForPackage(VerifyLicense.class);
-        CipherParam cipherParam = new DefaultCipherParam(STOREPWD);
-        KeyStoreParam privateStoreParam = new DefaultKeyStoreParam(VerifyLicense.class, pubPath, PUBLICALIAS, STOREPWD, null);
-        LicenseParam licenseParams = new DefaultLicenseParam(SUBJECT, preference, privateStoreParam, cipherParam);
-        return licenseParams;
-    }
 }
