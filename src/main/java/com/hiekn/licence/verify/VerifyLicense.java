@@ -45,8 +45,6 @@ public class VerifyLicense {
         String path = new File("").getAbsolutePath();
         licPath = path+File.separator+"cert"+File.separator+"kg.lic";
         pubPath = path+File.separator+"cert"+File.separator+"publicCerts.store";
-        System.out.println(licPath);
-        System.out.println(pubPath);
         install();
     }
 

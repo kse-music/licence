@@ -36,6 +36,7 @@
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>lic-create.properties</exclude>
+                    <exclude>lic-verify.properties</exclude>
                 </excludes>
             </resource>
         </resources>
