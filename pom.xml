@@ -6,7 +6,7 @@
 
     <groupId>com.hiekn</groupId>
     <artifactId>licence</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
@@ -35,7 +35,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>lic-create.properties</exclude>
+                    <!--<exclude>lic-create.properties</exclude>-->
                 </excludes>
             </resource>
         </resources>
@@ -53,7 +53,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>com/hiekn/licence/create/*.class</exclude>
+                        <!--<exclude>com/hiekn/licence/create/*.class</exclude>-->
                     </excludes>
                 </configuration>
             </plugin>

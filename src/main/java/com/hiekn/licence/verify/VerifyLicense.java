@@ -26,19 +26,27 @@ public class VerifyLicense {
 
     public VerifyLicense(String propertiesPath) {
         // 获取参数
-        Properties prop = new Properties();
-        InputStream in = getClass().getClassLoader().getResourceAsStream(propertiesPath);
-        try {
-            prop.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        PUBLICALIAS = prop.getProperty("PUBLICALIAS");
-        STOREPWD = prop.getProperty("STOREPWD");
-        SUBJECT = prop.getProperty("SUBJECT");
-        licPath = prop.getProperty("licPath");
-        pubPath = prop.getProperty("pubPath");
+//        Properties prop = new Properties();
+//        InputStream in = getClass().getClassLoader().getResourceAsStream(propertiesPath);
+//        try {
+//            prop.load(in);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        PUBLICALIAS = prop.getProperty("PUBLICALIAS");
+//        STOREPWD = prop.getProperty("STOREPWD");
+//        SUBJECT = prop.getProperty("SUBJECT");
+//        licPath = prop.getProperty("licPath");
+//        pubPath = prop.getProperty("pubPath");
 
+        PUBLICALIAS = "publiccert";
+        STOREPWD = "adminpk123";
+        SUBJECT = "KgMs";
+        String path = new File("").getAbsolutePath();
+        licPath = path+File.separator+"cert"+File.separator+"kg.lic";
+        pubPath = path+File.separator+"cert"+File.separator+"publicCerts.store";
+        System.out.println(licPath);
+        System.out.println(pubPath);
         install();
     }
 
